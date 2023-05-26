@@ -54,7 +54,7 @@ public class HistoryViewModel extends AndroidViewModel {
         return historyRepository.getTrainingWithEx();
     }
 
-    public List<ExEntity> getListExs(int id){
+    public List<ExEntity> getListExs(long id){
         return historyRepository.getListExs(id);
     }
 

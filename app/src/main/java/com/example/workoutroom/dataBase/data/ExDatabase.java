@@ -29,6 +29,8 @@ public abstract class ExDatabase extends RoomDatabase {
     //public abstract ExDaoLimit exDaoLimit();
 
     public abstract HistoryDao historyDao();
+
+    public abstract TrainingExCrossRefDao trainingExCrossRefDao();
     private static ExDatabase INSTANCE = null;
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);

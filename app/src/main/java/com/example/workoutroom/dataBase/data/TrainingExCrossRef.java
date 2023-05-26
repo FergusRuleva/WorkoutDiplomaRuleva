@@ -5,5 +5,8 @@ import androidx.room.Entity;
 @Entity(tableName = "trainingandex", primaryKeys = {"idT", "idEx"})
 public class TrainingExCrossRef {
     public long idT;
+
     public long idEx;
+
+    public boolean isDone = false;
 }

@@ -31,6 +31,7 @@ public class HistoryRepository {
     HistoryRepository(Application application){
         ExDatabase db = ExDatabase.getDbInstance(application);
         historyDao = db.historyDao();
+        trainingExCrossRefDao = db.trainingExCrossRefDao();
         //mAllHist = historyDao.getAllHistoriesLiveData();
         historyEntityFirst = new HistoryEntity(LocalDate.now().toString(),0);
     }
@@ -59,7 +60,7 @@ public class HistoryRepository {
         return historyDao.getTrainingWithExs();
     }
 
-    List<ExEntity> getListExs(int id){
+    List<ExEntity> getListExs(long id){
         return trainingExCrossRefDao.getExsByIdT(id);
     }
 

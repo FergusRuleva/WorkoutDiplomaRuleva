@@ -8,8 +8,8 @@ import java.util.List;
 @Dao
 public interface TrainingExCrossRefDao {
 
-    @Query("SELECT * FROM trainingandex WHERE idEx = :id")
-    List<ExEntity> getExsByIdT(int id);
+    @Query("SELECT a.idEx, a.name_ex, a.time_ex, a.image_ex, a.is_select FROM trainingandex AS t JOIN allexercises AS a ON a.idEx = t.idEx WHERE t.idT = :id")
+    List<ExEntity> getExsByIdT(long id);
 
     //    @Query("SELECT * FROM trainingandex WHERE idEx = :id")
 //    void deleteById(int id);

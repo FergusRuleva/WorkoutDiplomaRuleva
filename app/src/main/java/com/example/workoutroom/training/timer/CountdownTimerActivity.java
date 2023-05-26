@@ -52,10 +52,6 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        //observeData();
-
-
-
         //находим все объекты на активности
         setsRemainingText = findViewById(R.id.setsRemaining);
         countdownTimerText = findViewById(R.id.countdownTimerText);
@@ -68,7 +64,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         currentDescription = findViewById(R.id.setsRemaining);
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
-        trainingWithExsList = historyViewModel.getTrainingWithEx().getValue().get(1).exEntityList;
+        trainingWithExsList = historyViewModel.getListExs(historyViewModel.historyEntityFirst.idT);
 
         //если передали нужный список И кол-во упр
         if (getIntent().hasExtra("exs")
@@ -113,17 +109,6 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         });
     }
 
-    private void observeData(){
-//        historyViewModel.getTrainingWithEx().observe(this, new Observer<List<TrainingWithExs>>() {
-//            @Override
-//            public void onChanged(List<TrainingWithExs> trainingWithExs) {
-//                for (TrainingWithExs trainingWithExs1 : trainingWithExs) {
-//                    trainingWithExsList.add(trainingWithExs1);
-//                }
-//            }
-//        });
-    }
-
     //метод для паузы таймера
     private void pauseTimer() {
         countDownTimer.cancel(); //остановка объекта таймера
@@ -134,7 +119,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
     private void startTimer() {
         pauseBtn.setVisibility(View.VISIBLE);
         restText.setText("Keep Going"); //установка текста Продолжать
-        //timeLeftInMillis = trainingViewModel.getEx(pos).getTimeEx() * 1000; //получаем оставшееся время
+        timeLeftInMillis = trainingWithExsList.get(pos).getTimeEx() * 1000; //получаем оставшееся время
 
         try {
             Thread.sleep(1000); //каждую секунду отсчет
@@ -242,14 +227,12 @@ public class CountdownTimerActivity  extends AppCompatActivity {
     //смена упр
     private void changeExercises() {
         //для пред упр (текст + изоб)
-        //trainingWithExsList.get(pos).exEntityList.get()
-        //historyViewModel.getListExs(historyViewModel.getTrainingWithEx().getValue().)
 
-        //currentExText.setText("Current: " + trainingWithExsList.get(longT).getNameEx());
+        currentExText.setText("Current: " + trainingWithExsList.get(pos).getNameEx());
         currentImg.setImageBitmap(trainingWithExsList.get(pos).getImageEx());
         currentDescription.setText(trainingWithExsList.get(pos).getDescriptionEx());
 
-        if (pos + 1 < exs + 1) { //если еще остались упр
+        if (pos + 1 <= trainingWithExsList.size()) { //если еще остались упр
             //для след упр (текст + изоб)
             nextExText.setText("Next: " + trainingWithExsList.get(pos + 1).getNameEx());
             nextImg.setImageBitmap(trainingWithExsList.get(pos + 1).getImageEx());
