@@ -54,7 +54,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
 
         //observeData();
 
-        trainingWithExsList = historyViewModel.getTrainingWithEx().getValue().get(1).exEntityList;
+
 
         //находим все объекты на активности
         setsRemainingText = findViewById(R.id.setsRemaining);
@@ -68,6 +68,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         currentDescription = findViewById(R.id.setsRemaining);
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+        trainingWithExsList = historyViewModel.getTrainingWithEx().getValue().get(1).exEntityList;
 
         //если передали нужный список И кол-во упр
         if (getIntent().hasExtra("exs")

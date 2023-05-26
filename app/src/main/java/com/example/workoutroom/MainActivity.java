@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.workoutroom.dataBase.data.ExEntity;
 import com.example.workoutroom.exercises.AllExercisesActivity;
 import com.example.workoutroom.training.StartTrainingActivity;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    public ArrayList<ExEntity> exEntityCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

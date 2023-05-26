@@ -61,7 +61,7 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
         setContentView(R.layout.activity_checkout);
 
         //createHistory();
-        //exEntityList = new ArrayList<>();
+        exEntityList = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewTraining);
         TrainingAdapter.OnExClickListener onClickListener = new TrainingAdapter.OnExClickListener(){
