@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mtT"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#00FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/cardExTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/text_min"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTraining"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="6dp"
+                android:text="Add"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cardExImg"
+            android:layout_width="match_parent"
+            android:layout_height="286dp"
+            android:layout_weight="80"
+            android:contentDescription="Exercise image"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/img1" />
+
+        <TextView
+            android:id="@+id/cardExDescription"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:text="@string/text_description"
+            android:textAlignment="center"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/cardExName"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:text="@string/text_name_ex"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
