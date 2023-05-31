@@ -29,9 +29,6 @@ public class TrainingRepository {
         ExDatabase db = ExDatabase.getDbInstance(application);
         exDao = db.exDao();
         mAllEx = exDao.getAllExLiveData();
-        historyEntityFirst = new HistoryEntity(LocalDate.now().toString(), 0);
-        trainingWithExs = new TrainingWithExs();
-        trainingWithExs.historyEntity = historyEntityFirst;
     }
 
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных

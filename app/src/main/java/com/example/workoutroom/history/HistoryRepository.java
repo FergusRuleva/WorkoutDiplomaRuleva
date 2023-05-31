@@ -15,45 +15,63 @@ import com.example.workoutroom.dataBase.data.TrainingExCrossRefDao;
 import com.example.workoutroom.dataBase.data.TrainingWithExs;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HistoryRepository {
-
-    private HistoryDao historyDao;
+    public HistoryDao historyDao;
     private TrainingExCrossRefDao trainingExCrossRefDao;
-    private LiveData<List<HistoryEntity>> mAllHist;
+    private LiveData<List<TrainingWithExs>> mAllHist;
 
-    private List<TrainingExCrossRef> crossT;
+    private List<TrainingWithExs> mAllHistWithoutLiveData;
 
-    private HistoryEntity historyEntityFirst;
+    private Map<HistoryEntity, List<ExEntity>> mapTr;
+    private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
     HistoryRepository(Application application){
         ExDatabase db = ExDatabase.getDbInstance(application);
         historyDao = db.historyDao();
+        mAllHistWithoutLiveData = historyDao.getTrainingWithExsWithoutLiveData();
+        mAllHist = historyDao.getTrainingWithExs();
+        mapTr = historyDao.loadTrainingAndEx();
+        trainingExCrossRefList = historyDao.getTrainingExCrossRef();
         trainingExCrossRefDao = db.trainingExCrossRefDao();
-        //mAllHist = historyDao.getAllHistoriesLiveData();
-        historyEntityFirst = new HistoryEntity(LocalDate.now().toString(),0);
+//        if (historyEntityFirst == null){
+//            historyEntityFirst = new HistoryEntity(LocalDate.now().toString(),0, 0);
+//            historyDao.insert(historyEntityFirst);
+//        }
     }
 
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
-    LiveData<List<HistoryEntity>> getAllHistories(){
+    LiveData<List<TrainingWithExs>> getAllHistories(){
         return mAllHist;
     }
 
-    public void delete(HistoryEntity historyEntity){
+    Map<HistoryEntity, List<ExEntity>> getMapTr(){
+        return mapTr;
+    }
+
+    public void deleteTraining(long id){
         ExDatabase.databaseWriteExecutor.execute(()->{
-            //historyDao.delete(historyEntity);
+            historyDao.deleteTraining(id);
         });
     }
 
-    Long insert(TrainingExCrossRef trainingExCrossRef){
-        //ExDatabase.databaseWriteExecutor.execute(()->{
-        return historyDao.insert(trainingExCrossRef);
+    public void delete(long id){
+        ExDatabase.databaseWriteExecutor.execute(()->{
+            historyDao.delete(id);
+        });
     }
 
-    public List<TrainingExCrossRef> getCrossT(){
-        return crossT;
+    void insert(TrainingExCrossRef trainingExCrossRef){
+        //ExDatabase.databaseWriteExecutor.execute(()->{
+         historyDao.insert(trainingExCrossRef);
+    }
+
+    void insertHistory(HistoryEntity historyEntity){
+        historyDao.insert(historyEntity);
     }
 
     LiveData<List<TrainingWithExs>> getTrainingWithEx(){
@@ -64,7 +82,13 @@ public class HistoryRepository {
         return trainingExCrossRefDao.getExsByIdT(id);
     }
 
-    public HistoryEntity getHistoryEntityFirst() {
-        return historyEntityFirst;
+    List<TrainingExCrossRef> getTrainingExCrossRefList(){
+        return trainingExCrossRefList;
+    }
+
+    void update(HistoryEntity historyEntity){
+        ExDatabase.databaseWriteExecutor.execute(()->{
+            historyDao.update(historyEntity);
+        });
     }
 }

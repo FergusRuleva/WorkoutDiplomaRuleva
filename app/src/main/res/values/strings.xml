@@ -13,12 +13,19 @@
     <string name="btn_settings">Settings</string>
     <string name="btn_add_ex">Add New Exercise</string>
     <string name="btn_save_ex">Save</string>
+    <string name="btn_update_ex">Update</string>
+    <string name="btn_add_photo">Add Photo</string>
+    <string name="btn_restart">Restart</string>
+    <string name="btn_pause">Pause</string>
 
     <string name="hint_enter_name">Enter name exercise</string>
     <string name="hint_enter_description">Enter exercise description</string>
     <string name="hint_enter_time">Enter exercise time</string>
 
+    <string name="text_required">Required</string>
+
     <string name="menu_item_change">Change</string>
+    <string name="menu_item_send">Send</string>
     <string name="menu_item_delete">Delete</string>
 
     <string name="hint_count">Count</string>
@@ -29,7 +36,7 @@
     <string name="button_choose_random">Choose Random</string>
     <string name="text_or">Or</string>
 
-    <string name="text_total_time">Total time</string>
+    <string name="text_total_time">Total time\t</string>
     <string name="button_start">Start</string>
 
     <string name="text_sets_remaining">3 Sets Remaining</string>
@@ -43,4 +50,49 @@
     <string name="text_min">3 Min</string>
     <string name="text_description">Description</string>
     <string name="text_name_ex">Pushups</string>
+
+    <string name="text_date">23.05.2023</string>
+    <string name="text_done">Done</string>
+    <string name="text_undone">UnDone</string>
+    <string name="text_list_exs">Push Ups\nSit Ups\nCrunches</string>
+
+    <string name="text_des_1">Lower yourself down by bending your arms at the elbow joints, continuing to hold the shoulder blades in this position and maintaining the anatomically correct curves of the spine. Your elbows are at about a 45 degree angle from your torso. Then smoothly return to the starting position.</string>
+    <string name="text_des_2">Lying on your back on the gymnastics mat raise your torso. Hands behind head "in lock", shoulder blades touching the mat, legs bent at right angles, feet pressed to the floor.</string>
+    <string name="text_des_3">Straighten your arms above your head. Exhale, tense your abs and hold your breath. Pull your head, shoulders and shoulder blades off the floor, keeping your lower back pressed against it. Slowly return to the starting position and repeat.</string>
+    <string name="text_des_4">Stand up straight, with your feet shoulder width apart, and do short bends first to one side and then to the other, trying not to bend your knees.</string>
+    <string name="text_des_5">Lie on your back, relax. Legs straight, lying on the floor. Place your hands under your lower back, palms down, to support your lower back. As you exhale, lift straight legs up, contracting the abdominal muscles. Once your abs have contracted as much as possible, slowly lower your legs back to the starting position.</string>
+    <string name="text_des_6">Grasp a pair of dumbbells on the floor, palms facing each other. Place the dumbbells so that they are in line with or slightly wider than your shoulders. Stand in a high plank position, keeping the cortex muscles tense. Bend your arms at the elbows and lower your torso to the floor. Rest your palms on dumbbells. Do push-ups and return to standing position.</string>
+    <string name="text_des_7">Grab the dumbbells and hold your hands with your palms facing your body. Bend your elbows and bring the dumbbells to your shoulders while turning your wrists outward. At the top point, palms should be turned toward the body.</string>
+    <string name="text_des_8">Put your feet on the ball, lower yourself down, keeping the anatomically correct curves of the spine, then gently return to the starting position.</string>
+    <string name="text_des_9">Keep your back straight and your pelvis in a central position. Put your left foot on your toes, bending at the knee. Bend your left leg to the left, but do not twist your body to follow it. Lift the foot of the bent leg.</string>
+
+    <string name="text_ex_1">Push Ups</string>
+    <string name="text_ex_2">Sit Ups</string>
+    <string name="text_ex_3">Crunches</string>
+    <string name="text_ex_4">Side Bends</string>
+    <string name="text_ex_5">Leg Lifts</string>
+    <string name="text_ex_6">Weighted Push Ups</string>
+    <string name="text_ex_7">Bicep Dumbbell Curl</string>
+    <string name="text_ex_8">Exercise Ball Push Ups</string>
+    <string name="text_ex_9">Tree Pose</string>
+
+    <string name="text_holder_sec">\tSec</string>
+    <string name="text_holder_min">\tMin</string>
+    <string name="text_holder_sets">\tSets</string>
+
+    <string name="text_report_date">Report of\t</string>
+    <string name="text_report_time">Training time\t</string>
+    <string name="text_report_sets">Number of approaches\t</string>
+    <string name="text_report_status_yes">Status: DONE</string>
+    <string name="text_report_status_no">Status: UNDONE</string>
+    <string name="text_report_list">List of exercises:</string>
+
+    <string name="text_take_rest">Take Rest</string>
+    <string name="text_finished">Finished!</string>
+    <string name="text_current_set">Current:\t</string>
+    <string name="text_next_set">Next:\t</string>
+    <string name="text_no_ex">No Exercises Left</string>
+    <string name="text_sets_remaining_set">Sets Remaining:\t</string>
+
+    <string name="text_sound">Sound</string>
 </resources>

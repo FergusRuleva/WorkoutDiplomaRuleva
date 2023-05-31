@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">WorkoutRoom</string>
+
+    <string name="empty_not_saved">Упражнение не сохраняется, потому что оно пустое!</string>
+    <string name="ex_saved">Упражнение сохранено</string>
+    <string name="image_added">Фото добавлено</string>
+    <string name="image_not_added">Фото не добавлено!</string>
+
+
+    <string name="btn_start">Начать тренировку</string>
+    <string name="btn_history">История тренировок</string>
+    <string name="btn_all_exs">Все упражнения</string>
+    <string name="btn_settings">Настройки</string>
+    <string name="btn_add_ex">Добавить упражнение</string>
+    <string name="btn_save_ex">Сохранить</string>
+    <string name="btn_update_ex">Обновить</string>
+    <string name="btn_add_photo">Добавить фото</string>
+    <string name="btn_restart">Перезапуск</string>
+    <string name="btn_pause">Пауза</string>
+
+    <string name="hint_enter_name">Введите название упражнения</string>
+    <string name="hint_enter_description">Введите описание упражнения</string>
+    <string name="hint_enter_time">Введите время упражнения</string>
+
+    <string name="text_required">Обязательно</string>
+
+    <string name="menu_item_change">Изменить</string>
+    <string name="menu_item_send">Отправить</string>
+    <string name="menu_item_delete">Удалить</string>
+
+    <string name="hint_count">Count</string>
+    <string name="hint_sets">Подхода</string>
+    <string name="helper_text_count">Упражнения на подход(1-9)</string>
+    <string name="helper_text_sets">Число подходов</string>
+    <string name="button_show_ex">Показать упражнения</string>
+    <string name="button_choose_random">Выбрать случайно</string>
+    <string name="text_or">Или</string>
+
+    <string name="text_total_time">Общее время\t</string>
+    <string name="button_start">Старт</string>
+
+    <string name="text_sets_remaining">Осталось 3 подхода</string>
+    <string name="text_keep_going">Не останавливайтесь</string>
+    <string name="text_time">02:00</string>
+    <string name="button_pause">Пауза</string>
+    <string name="text_current">Текущее : Отжимания</string>
+    <string name="text_next">Следущее: Поднятие туловища</string>
+
+    <string name="text_sets">2 Подхода</string>
+    <string name="text_min">3 Мин</string>
+    <string name="text_description">Описание</string>
+    <string name="text_name_ex">Отжимания</string>
+
+    <string name="text_date">23.05.2023</string>
+    <string name="text_done">Выполнено</string>
+    <string name="text_undone">Не выполнено</string>
+    <string name="text_list_exs">Отжимания\nПоднятие туловища\nСкручивания</string>
+
+    <string name="text_des_1">Опуститься вниз, сгибая руки в локтевых суставах, продолжая удерживать лопатки в этом положении и сохраняя анатомически правильные изгибы позвоночника. Локти направлены примерно под углом 45 градусов от туловища. Затем плавно вернуться в исходное положение.</string>
+    <string name="text_des_2">Лежа на спине, на гимнастическом мате выполнять поднятие туловища. Руки за головой «в замок», лопатки касаются мата, ноги согнуты в коленях под прямым углом, ступни прижаты партнером к полу.</string>
+    <string name="text_des_3">Выпрямить руки над головой. Сделайть выдох, напрячь пресс и задержить дыхание. Оторвать голову, плечи и лопатки от пола, поясницу оставить прижатой к нему. Медленно вернуться в исходное положение и повторить.</string>
+    <string name="text_des_4">Встать прямо, поставить ноги на ширину плеч, и делать короткие наклоны сначала в одну сторону, потом в другую, стараясь не сгибать колени.</string>
+    <string name="text_des_5">Лечь на спину, расслабиться. Ноги прямые, лежат на полу. Поместить руки под нижнюю часть спины ладонями вниз для поддержки поясницы. На выдохе поднимить прямые ноги вверх, сокращая мышцы брюшного пресса. Как только мышцы пресса максимально сократились, медленно опустить ноги в исходное положение.</string>
+    <string name="text_des_6">Взяться за пару гантелей на полу, ладони обращены друг к другу. Поместить гантели так, чтобы они были на одной линии с плечами или чуть шире них. Встать в положение высокой планки, удерживайть мышцы кора напряженными. Согнув руки в локтях, опустить туловище на пол. Упереться ладонями в гантели. Сделайть отжимание и вернуться в стойку.</string>
+    <string name="text_des_7">Взять гантели и держать руки ладонями к телу. Согнуть локти и довести гантели до плеч, одновременно разворачивая запястья наружу. В верхней точке ладони должны быть повёрнуты к телу.</string>
+    <string name="text_des_8">Положить ноги на мяч, опуститься вниз, сохраняя анатомически правильные изгибы позвоночника, затем плавно вернуться в исходное положение.</string>
+    <string name="text_des_9">Оставлять спину ровной, а таз в центральном положении. Левую ногу поставить на носок, согнув в колене. Отвести ее влево, но не поворачивать корпус вслед за ней. Поднять стопу согнутой ноги.</string>
+
+    <string name="text_ex_1">Отжимания</string>
+    <string name="text_ex_2">Поднятие туловища</string>
+    <string name="text_ex_3">Скручивания</string>
+    <string name="text_ex_4">Боковые наклоны</string>
+    <string name="text_ex_5">Подъем ног лежа</string>
+    <string name="text_ex_6">Отжимания с отягощением</string>
+    <string name="text_ex_7">Скручивание гантели на бицепс</string>
+    <string name="text_ex_8">Отжимания с мячом</string>
+    <string name="text_ex_9">Поза дерева</string>
+
+    <string name="text_holder_sec">\tс</string>
+    <string name="text_holder_min">\tМин</string>
+    <string name="text_holder_sets">\tПодхода</string>
+
+    <string name="text_report_date">Отчет от\t</string>
+    <string name="text_report_time">Время тренировки\t</string>
+    <string name="text_report_sets">Число подходов\t</string>
+    <string name="text_report_status_yes">Статус: ВЫПОЛНЕНО</string>
+    <string name="text_report_status_no">Статус: НЕ ВЫПОЛНЕНО</string>
+    <string name="text_report_list">Список упражнений:</string>
+
+    <string name="text_take_rest">Отдыхайте</string>
+    <string name="text_finished">Готово!</string>
+    <string name="text_current_set">Текущее:\t</string>
+    <string name="text_next_set">Следущее:\t</string>
+    <string name="text_no_ex">Упражнений не осталось</string>
+    <string name="text_sets_remaining_set">Осталось подходов:\t</string>
+
+    <string name="text_sound">Звук</string>
+</resources>

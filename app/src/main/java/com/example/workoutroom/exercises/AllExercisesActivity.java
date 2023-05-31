@@ -16,7 +16,9 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.workoutroom.R;
+import com.example.workoutroom.dataBase.Converters;
 import com.example.workoutroom.dataBase.data.ExEntity;
+import com.example.workoutroom.training.CheckoutActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class AllExercisesActivity extends AppCompatActivity {
@@ -26,21 +28,24 @@ public class AllExercisesActivity extends AppCompatActivity {
 
     private MaterialCardView materialCardView;
 
+    private String textSec;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_exercises);
 
+        textSec = this.getResources().getString(R.string.text_holder_sec);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerViewAllEx);
         ExAdapter.OnExClickListener onClickListener = new ExAdapter.OnExClickListener(){
             @Override
-            public void onExClick(ExEntity exEntity, int position) {
-                Toast.makeText(getApplicationContext(), "Был выбран пункт " + exEntity.getNameEx(),
-                        Toast.LENGTH_SHORT).show();
+            public void onExClick(ExEntity exEntity, int position, View v) {
+                showMenu(v, exEntity);
             }
         };
-        final ExAdapter adapter = new ExAdapter(new ExAdapter.WorkoutDiff(), onClickListener); //?????
+        final ExAdapter adapter = new ExAdapter(new ExAdapter.WorkoutDiff(), onClickListener, textSec); //?????
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -57,14 +62,6 @@ public class AllExercisesActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(AllExercisesActivity.this, AddNewExerciseActivity.class), 100);
             }
         });
-
-//        materialCardView = findViewById(R.id.materialCardViewEx);
-//        materialCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showMenu(v);
-//            }
-//        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -80,7 +77,7 @@ public class AllExercisesActivity extends AppCompatActivity {
         }
     }
 
-    private void showMenu(View v) {
+    private void showMenu(View v, ExEntity exEntity) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.menu_ex);
 
@@ -88,31 +85,42 @@ public class AllExercisesActivity extends AppCompatActivity {
                     @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case 0:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали PopupMenu 1",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            case 1:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали PopupMenu 2",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
+
+                        if (item.getItemId() == R.id.option_1){
+                            changeEx(exEntity);
+                            return true;
+                        }else if(item.getItemId() == R.id.option_2){
+                            deleteEx(exEntity);
+                            return true;
+                        }else{
+                            return false;
                         }
                     }
                 });
-
-        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "onDismiss",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+//        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
+//            @Override
+//            public void onDismiss(PopupMenu menu) {
+//                Toast.makeText(getApplicationContext(), "onDismiss",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
         popup.show();
+    }
+
+    private void changeEx(ExEntity exEntity){
+        //переход на активность с Выполнением упражнения
+        Intent intent = new Intent(this, AddNewExerciseActivity.class);
+        intent.putExtra("id", exEntity.idEx);
+        intent.putExtra("name", exEntity.nameEx);
+        intent.putExtra("descr", exEntity.descriptionEx);
+        intent.putExtra("time", exEntity.timeEx);
+        intent.putExtra("image", Converters.fromBitmap(exEntity.imageEx));
+        //startActivity(intent); //переход
+        startActivityForResult(intent, 100);
+    }
+
+    private void deleteEx(ExEntity exEntity){
+        exViewModel.delete(exEntity);
     }
 
 }

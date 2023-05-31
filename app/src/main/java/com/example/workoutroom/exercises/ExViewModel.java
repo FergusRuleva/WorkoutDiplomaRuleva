@@ -32,6 +32,10 @@ public class ExViewModel extends AndroidViewModel {
         mRepository.insert(exEntity);
     }
 
+    public void update(ExEntity exEntity) {
+        mRepository.update(exEntity);
+    }
+
     public void delete(ExEntity exEntity) {
         mRepository.delete(exEntity);
     }

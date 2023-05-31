@@ -38,4 +38,10 @@ public class ExRepository {
             exDao.delete(exEntity);
         });
     }
+
+    void update(ExEntity exEntity){
+        ExDatabase.databaseWriteExecutor.execute(()->{
+            exDao.update(exEntity);
+        });
+    }
 }

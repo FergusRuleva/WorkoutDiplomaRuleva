@@ -10,7 +10,9 @@
         android:id="@+id/materialCardViewMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="16dp"
         app:cardElevation="16dp"
@@ -39,6 +41,7 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="225"
@@ -59,6 +62,7 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextDescr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="225"
@@ -79,6 +83,7 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
@@ -87,21 +92,32 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <ImageButton
-                android:id="@+id/imageButton"
+            <ImageView
+                android:id="@+id/imageViewEx"
                 android:layout_width="358dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
+                app:srcCompat="@drawable/img1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/btn_add_photo"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="301dp"
-                android:src="@drawable/logo"
+                android:textAllCaps="true"
+                android:textColor="@color/blue_color"
+                app:backgroundTint="@color/pink_color"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
                 app:layout_constraintTop_toBottomOf="@+id/timeEx"
                 tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
-            </ImageButton>
+            </com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/saveButton"

@@ -15,6 +15,7 @@ import com.example.workoutroom.exercises.ExViewHolder;
 
 public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
 
+    private String textSec;
 
     //private int clickCount = 0;
     interface OnExClickListener{
@@ -22,9 +23,10 @@ public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
     }
 
     private final TrainingAdapter.OnExClickListener onClickListener;
-    protected TrainingAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, TrainingAdapter.OnExClickListener onClickListener) {
+    protected TrainingAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, TrainingAdapter.OnExClickListener onClickListener, String textSec) {
         super(diffCallback);
         this.onClickListener = onClickListener;
+        this.textSec = textSec;
     }
 
     @NonNull
@@ -37,7 +39,7 @@ public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TrainingViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ExEntity current = getItem(position);
-        holder.bind(current.getNameEx(), current.getDescriptionEx(), current.getTimeEx(), current.getImageEx());
+        holder.bind(current.getNameEx(), String.valueOf(current.getTimeEx()) + textSec, current.getImageEx());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

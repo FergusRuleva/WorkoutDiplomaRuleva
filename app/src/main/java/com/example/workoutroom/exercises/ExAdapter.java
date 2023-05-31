@@ -12,15 +12,17 @@ import com.example.workoutroom.dataBase.data.ExEntity;
 
 public class ExAdapter extends ListAdapter<ExEntity, ExViewHolder> {
 
+    private String textSec;
     interface OnExClickListener{
-        void onExClick(ExEntity exEntity, int position);
+        void onExClick(ExEntity exEntity, int position, View v);
     }
 
     private final OnExClickListener onClickListener;
 
-    public ExAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, OnExClickListener onClickListener) {
+    public ExAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, OnExClickListener onClickListener, String textSec) {
         super(diffCallback);
         this.onClickListener = onClickListener;
+        this.textSec = textSec;
     }
 
     @NonNull
@@ -32,11 +34,11 @@ public class ExAdapter extends ListAdapter<ExEntity, ExViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ExViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ExEntity current = getItem(position);
-        holder.bind(current.getNameEx(), current.getDescriptionEx(), current.getTimeEx(), current.getImageEx());
+        holder.bind(current.getNameEx(), current.getDescriptionEx(), String.valueOf(current.getTimeEx()) + textSec, current.getImageEx());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickListener.onExClick(current, position);
+                onClickListener.onExClick(current, position, v);
             }
         });
     }

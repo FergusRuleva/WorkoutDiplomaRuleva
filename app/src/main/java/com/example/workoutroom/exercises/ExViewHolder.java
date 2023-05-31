@@ -1,5 +1,7 @@
 package com.example.workoutroom.exercises;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,20 +29,13 @@ public class ExViewHolder extends RecyclerView.ViewHolder {
         tvDescriptionEx = itemView.findViewById(R.id.tvDescriptionRow);
         tvTimeEx = itemView.findViewById(R.id.tvTimeRow);
         imageView = itemView.findViewById(R.id.imageView);
-        settingsExButton = itemView.findViewById(R.id.settingsExButton);
     }
 
-    public void bind(String nameEx, String descriptionEx, int timeEx, Bitmap imageEx) {
+    public void bind(String nameEx, String descriptionEx, String timeEx, Bitmap imageEx) {
         tvNameEx.setText(nameEx);
         tvDescriptionEx.setText(descriptionEx);
-        tvTimeEx.setText(timeEx + " Sec");
+        tvTimeEx.setText(timeEx);
         imageView.setImageBitmap(imageEx);
-        settingsExButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     static ExViewHolder create(ViewGroup parent) {

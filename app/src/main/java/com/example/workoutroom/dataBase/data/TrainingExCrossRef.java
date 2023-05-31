@@ -7,6 +7,4 @@ public class TrainingExCrossRef {
     public long idT;
 
     public long idEx;
-
-    public boolean isDone = false;
 }

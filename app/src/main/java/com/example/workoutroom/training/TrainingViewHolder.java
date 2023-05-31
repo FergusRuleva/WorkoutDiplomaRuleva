@@ -23,19 +23,14 @@ public class TrainingViewHolder extends RecyclerView.ViewHolder {
 
     public TrainingViewHolder(@NonNull View itemView) {
         super(itemView);
-        //this.onWorkoutListener = onWorkoutListener;
         time = itemView.findViewById(R.id.cardExTime);
         name = itemView.findViewById(R.id.cardExName);
-        description = itemView.findViewById(R.id.cardExDescription);
         image = itemView.findViewById(R.id.cardExImg);
-        //itemView.setOnClickListener((View.OnClickListener) this);
     }
 
-    public void bind(String nameEx, String descriptionEx, int timeEx, Bitmap imageEx) {
+    public void bind(String nameEx, String timeEx, Bitmap imageEx) {
         name.setText(nameEx);
-        description.setText(descriptionEx);
-        String s = String.valueOf(timeEx);
-        time.setText(s + " Sec");
+        time.setText(timeEx);
         image.setImageBitmap(imageEx);
     }
 

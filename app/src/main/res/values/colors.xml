@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink_color">#FFC8D5</color>
     <color name="blue_color">#3646A6</color>
+    <color name="done_color">#4CAF50</color>
+    <color name="undone_color">#F44336</color>
 </resources>

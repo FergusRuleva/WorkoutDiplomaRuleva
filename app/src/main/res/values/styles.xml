@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="styleSwitch">
+
+        <item name="colorControlActivated">@color/blue_color</item>
+        <item name="colorSwitchThumbNormal">@color/pink_color</item>
+        <item name="android:colorForeground">@android:color/darker_gray</item>
+    </style>
+</resources>

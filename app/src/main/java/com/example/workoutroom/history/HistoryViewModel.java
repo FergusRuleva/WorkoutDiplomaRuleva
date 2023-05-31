@@ -7,47 +7,59 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.workoutroom.dataBase.data.ExDatabase;
 import com.example.workoutroom.dataBase.data.ExEntity;
 import com.example.workoutroom.dataBase.data.HistoryEntity;
 import com.example.workoutroom.dataBase.data.TrainingExCrossRef;
 import com.example.workoutroom.dataBase.data.TrainingWithExs;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HistoryViewModel extends AndroidViewModel {
 
-    private HistoryRepository historyRepository;
+    public HistoryRepository historyRepository;
+    public HistoryEntity historyEntityFirst = null;
+    private final LiveData<List<TrainingWithExs>> mAllHist;
+    private Map<HistoryEntity, List<ExEntity>> mapTr;
 
-    public List<TrainingExCrossRef> crossT;
-
-    public HistoryEntity historyEntityFirst;
-
-    private final LiveData<List<HistoryEntity>> mAllHist;
+    private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         historyRepository = new HistoryRepository(application);
         mAllHist = historyRepository.getAllHistories();
-        this.crossT = historyRepository.getCrossT();
-        historyEntityFirst = historyRepository.getHistoryEntityFirst();
+        mapTr = historyRepository.getMapTr();
+        trainingExCrossRefList = historyRepository.getTrainingExCrossRefList();
+//        if (historyEntityFirst == null){
+//            historyEntityFirst = historyRepository.getHistoryEntityFirst();
+//        }
     }
 
-    public LiveData<List<HistoryEntity>> getAllHist() {
+    public LiveData<List<TrainingWithExs>> getAllHist() {
         return mAllHist;
     }
 
-    public Long insert(TrainingExCrossRef trainingExCrossRef) {
-        return historyRepository.insert(trainingExCrossRef);
+    public Map<HistoryEntity, List<ExEntity>> getMapTr(){
+        return mapTr;
     }
 
-    public void delete(HistoryEntity historyEntity) {
-        historyRepository.delete(historyEntity);
+    public void insert(TrainingExCrossRef trainingExCrossRef) {
+        historyRepository.insert(trainingExCrossRef);
     }
 
-    public List<TrainingExCrossRef> getCrossT(){
-        return historyRepository.getCrossT();
+    public void insertHistory(HistoryEntity historyEntity){
+        historyRepository.insertHistory(historyEntity);
+    }
+
+    public void deleteTraining(long id) {
+        historyRepository.deleteTraining(id);
+    }
+
+    public void delete(long id) {
+        historyRepository.delete(id);
     }
 
     public LiveData<List<TrainingWithExs>> getTrainingWithEx(){
@@ -58,7 +70,12 @@ public class HistoryViewModel extends AndroidViewModel {
         return historyRepository.getListExs(id);
     }
 
-    public HistoryEntity getHistoryEntityFirst() {
-        return historyEntityFirst;
+    List<TrainingExCrossRef> getTrainingExCrossRefList(){
+        return trainingExCrossRefList;
     }
+
+    public void update(HistoryEntity historyEntity){
+        historyRepository.update(historyEntity);
+    }
+
 }

@@ -25,9 +25,18 @@ public class HistoryEntity {
     @ColumnInfo(name = "time_t")
     public int timeT;
 
-    public HistoryEntity(@NonNull String dateT, int timeT){
+    @NonNull
+    @ColumnInfo(name = "sets_t")
+    public int setsT = 1;
+
+    @NonNull
+    @ColumnInfo(name = "is_done_t")
+    public boolean isDone;
+
+    public HistoryEntity(@NonNull String dateT, int timeT, int setsT){
         this.dateT = dateT;
         this.timeT = timeT;
+        this.setsT = setsT;
     }
 
     public long getIdT() {
@@ -40,5 +49,17 @@ public class HistoryEntity {
 
     public int getTimeT() {
         return timeT;
+    }
+
+    public boolean getDone() {
+        return isDone;
+    }
+
+    public int getSetsT() {
+        return setsT;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

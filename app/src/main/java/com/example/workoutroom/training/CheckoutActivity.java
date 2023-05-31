@@ -35,24 +35,18 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
 
     private static final String TAG = "CheckoutActivity";
     private int sets; //кол-во повторений
-    private int exs; //кол-во повторений
     private TextView totalTimeText; //время выполнения
     private TextView setsText;
-    private int setsInt = 1;
     private int totalTime = 0; //переменная для времени выполнения упр
-
     private MaterialButton materialButton;
     public TrainingViewModel trainingViewModel;
-
     public HistoryViewModel historyViewModel;
-
     private List<ExEntity> exEntityList;
-
     private List<TrainingExCrossRef> crossList = new ArrayList<>();
+    HistoryEntity historyEntity;
+    private int sizeListTr;
 
-    TrainingWithExs trainingWithExs;
-
-    private Long longT;
+    private String textSets, textTotalTime, textMins, textSec;
 
     @SuppressLint({"SourceLockedOrientationActivity", "MissingInflatedId", "SetTextI18n", "NewApi"})
     @Override
@@ -60,16 +54,26 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        //createHistory();
+        textSets = this.getResources().getString(R.string.text_holder_sets);
+        textTotalTime = this.getResources().getString(R.string.text_total_time);
+        textMins = this.getResources().getString(R.string.text_holder_min);
+        textSec = this.getResources().getString(R.string.text_holder_sec);
+
+        //модели взаимодействия с тренировкой и с историей тренировки
+        trainingViewModel = new ViewModelProvider(this).get(TrainingViewModel.class);
+        historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+
+        //список для выбранных упражнений
         exEntityList = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewTraining);
         TrainingAdapter.OnExClickListener onClickListener = new TrainingAdapter.OnExClickListener(){
             @Override
             public void onExClick(ExEntity exEntity, int position) {
+                //по клику на эл rV идет проверка - уже выбран элемент или нет
                 if (!trainingViewModel.getAllExs().getValue().get(position).isSelect){
                     trainingViewModel.getAllExs().getValue().get(position).isSelect = true;
-                    addExsInTraining(position);
+                    addExsInTraining(position); //метод добавления/удаления упр из списка
                 }
                 else if(trainingViewModel.getAllExs().getValue().get(position).isSelect){
                     trainingViewModel.getAllExs().getValue().get(position).isSelect = false;
@@ -78,7 +82,7 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
             }
         };
 
-        final TrainingAdapter adapter = new TrainingAdapter(new TrainingAdapter.WorkoutDiff(), onClickListener); //?????
+        final TrainingAdapter adapter = new TrainingAdapter(new TrainingAdapter.WorkoutDiff(), onClickListener, textSec); //?????
 
         materialButton = findViewById(R.id.materialButton);
         totalTimeText = findViewById(R.id.totalTimeText);
@@ -91,25 +95,17 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
             }
         });
 
-
-        trainingViewModel = new ViewModelProvider(this).get(TrainingViewModel.class);
-        historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
-
         Intent intent = getIntent();
-        if (intent.hasExtra("exs") && intent.hasExtra("sets")) { //если передали
+        if (intent.hasExtra("sets")) { //если передали
 
             sets = intent.getIntExtra("sets", 1); //получаем кол-во подходов
-            exs = intent.getIntExtra("exs", 1); //получаем кол-во упр
 
+            //получение списка всех упражнений и обновление
             trainingViewModel.getAllExs().observe(this, words -> {
-                // Update the cached copy of the words in the adapter.
                 adapter.submitList(words);
             });
 
-            //totalTime = trainingViewModel.getTimeEx(exs);
-            totalTimeText.setText("Total Time: " + totalTime / 60 * sets + " Mins"); //устанавливаем текст
-
-            setsText.setText(sets + " Sets");
+            setsText.setText(sets + textSets);
 
         } else {
             Log.d(TAG, "getIntent: error");
@@ -117,7 +113,6 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
@@ -127,37 +122,53 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
     }
 
     //кнопка Start
+    @SuppressLint("NewApi")
     public void startExercise(View view) {
-        createTraining();
+
         //переход на активность с Таймером отсчета
         Intent intent = new Intent(this, CountdownTimerActivity.class); // создание объекта Intent для запуска CountdownTimerActivity
 
+        int totalTimeHi = totalTime / 60 * sets;
+        historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTimeHi, sets - 1);
+        historyViewModel.insertHistory(historyEntity);
+        sizeListTr = historyViewModel.historyRepository.historyDao.getHistoryEntity().size();
+        //метод создания записей выбранных упражнений (пперекр. таблица)
+        createTraining();
+
+        //добавление записей выбранных упражнений в таблицу many-to-many
         for (TrainingExCrossRef exsT: crossList){
-            longT = historyViewModel.insert(exsT);
+            historyViewModel.insert(exsT);
         }
 
-        intent.putExtra("exs", exs); //передача кол-ва упражнений с ключом sets
-        intent.putExtra("sets", sets); //передача кол-ва
+        //передача данных
+        intent.putExtra("sets", sets);
         intent.putExtra("totalTime", totalTime);
-        intent.putExtra("longList", longT);
+        //intent.putExtra("idTr", historyEntity.idT);
+        intent.putExtra("idTr", historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListTr - 1).idT);
 
         startActivity(intent); //переход, запуск
     }
 
     public void addExsInTraining(int position){
 
+        //если упр выбрано -> добавление в список выбранных, подсчет итогового времени, установка текста времени
         if (trainingViewModel.getAllExs().getValue().get(position).isSelect){
             exEntityList.add(trainingViewModel.getAllExs().getValue().get(position));
+            totalTime += trainingViewModel.getAllExs().getValue().get(position).getTimeEx();
+            totalTimeText.setText(textTotalTime + totalTime / 60 * sets + textMins);
         }
-        else {
+        else { //удаление из списка выбранных, подсчет времени, установка текста времени
             exEntityList.remove(trainingViewModel.getAllExs().getValue().get(position));
+            totalTime -= trainingViewModel.getAllExs().getValue().get(position).getTimeEx();
+            totalTimeText.setText(textTotalTime + totalTime / 60 * sets + textMins);
         }
     }
 
     public void createTraining (){
+        //создание записей перекр. таблицы (добавление id тренировки и id упражнения)
         for (ExEntity exsT: exEntityList){
             TrainingExCrossRef trainingExCrossRef = new TrainingExCrossRef();
-            trainingExCrossRef.idT = trainingViewModel.historyEntityFirst.idT;
+            trainingExCrossRef.idT = historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListTr - 1).idT;
             trainingExCrossRef.idEx = exsT.idEx;
             crossList.add(trainingExCrossRef);
         }
