@@ -2,6 +2,7 @@ package com.example.workoutroom.training;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.icu.util.LocaleData;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +55,18 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.pink_color), PorterDuff.Mode.SRC_ATOP);
+        setTitle(R.string.button_show_ex);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         textSets = this.getResources().getString(R.string.text_holder_sets);
         textTotalTime = this.getResources().getString(R.string.text_total_time);
@@ -105,7 +119,7 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
                 adapter.submitList(words);
             });
 
-            setsText.setText(sets + textSets);
+            setsText.setText(sets + "\t" + textSets);
 
         } else {
             Log.d(TAG, "getIntent: error");
@@ -155,12 +169,12 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
         if (trainingViewModel.getAllExs().getValue().get(position).isSelect){
             exEntityList.add(trainingViewModel.getAllExs().getValue().get(position));
             totalTime += trainingViewModel.getAllExs().getValue().get(position).getTimeEx();
-            totalTimeText.setText(textTotalTime + totalTime / 60 * sets + textMins);
+            totalTimeText.setText(textTotalTime + "\n" + totalTime / 60 * sets + "\t" + textMins);
         }
         else { //удаление из списка выбранных, подсчет времени, установка текста времени
             exEntityList.remove(trainingViewModel.getAllExs().getValue().get(position));
             totalTime -= trainingViewModel.getAllExs().getValue().get(position).getTimeEx();
-            totalTimeText.setText(textTotalTime + totalTime / 60 * sets + textMins);
+            totalTimeText.setText(textTotalTime + "\n" + totalTime / 60 * sets + "\t" + textMins);
         }
     }
 

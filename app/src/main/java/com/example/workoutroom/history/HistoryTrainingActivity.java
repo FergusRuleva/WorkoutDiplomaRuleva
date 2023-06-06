@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,9 +42,6 @@ public class HistoryTrainingActivity extends AppCompatActivity {
     private HistoryViewModel historyViewModel;
 
     private List<ExEntity> exEntityList;
-
-    private Map<HistoryEntity, List<ExEntity>> mapTr;
-
     private String textMin, textSets;
 
 
@@ -50,6 +49,18 @@ public class HistoryTrainingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.pink_color), PorterDuff.Mode.SRC_ATOP);
+        setTitle(R.string.btn_history);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         textMin = this.getResources().getString(R.string.text_holder_min);
         textSets = this.getResources().getString(R.string.text_holder_sets);
@@ -66,8 +77,6 @@ public class HistoryTrainingActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        mapTr = historyViewModel.getMapTr();
         historyViewModel.getAllHist().observe(this, trainingWithExs -> {
             // Update the cached copy of the training in the adapter.
             adapter.submitList(trainingWithExs);

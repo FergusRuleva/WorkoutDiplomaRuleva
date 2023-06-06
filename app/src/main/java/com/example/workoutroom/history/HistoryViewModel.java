@@ -22,8 +22,6 @@ public class HistoryViewModel extends AndroidViewModel {
     public HistoryRepository historyRepository;
     public HistoryEntity historyEntityFirst = null;
     private final LiveData<List<TrainingWithExs>> mAllHist;
-    private Map<HistoryEntity, List<ExEntity>> mapTr;
-
     private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
@@ -31,7 +29,6 @@ public class HistoryViewModel extends AndroidViewModel {
         super(application);
         historyRepository = new HistoryRepository(application);
         mAllHist = historyRepository.getAllHistories();
-        mapTr = historyRepository.getMapTr();
         trainingExCrossRefList = historyRepository.getTrainingExCrossRefList();
 //        if (historyEntityFirst == null){
 //            historyEntityFirst = historyRepository.getHistoryEntityFirst();
@@ -40,10 +37,6 @@ public class HistoryViewModel extends AndroidViewModel {
 
     public LiveData<List<TrainingWithExs>> getAllHist() {
         return mAllHist;
-    }
-
-    public Map<HistoryEntity, List<ExEntity>> getMapTr(){
-        return mapTr;
     }
 
     public void insert(TrainingExCrossRef trainingExCrossRef) {

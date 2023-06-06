@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.WorkoutRoom" parent="Base.Theme.WorkoutRoom" />
+
+    <style name="Theme.WorkoutRoom.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.WorkoutRoom.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.WorkoutRoom.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

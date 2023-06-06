@@ -8,17 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.workoutroom.R;
 import com.example.workoutroom.dataBase.Converters;
 import com.example.workoutroom.dataBase.data.ExEntity;
-import com.example.workoutroom.training.CheckoutActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class AllExercisesActivity extends AppCompatActivity {
@@ -27,7 +28,6 @@ public class AllExercisesActivity extends AppCompatActivity {
     private Button addNewExButton;
 
     private MaterialCardView materialCardView;
-
     private String textSec;
 
     @SuppressLint("MissingInflatedId")
@@ -35,6 +35,19 @@ public class AllExercisesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_exercises);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.pink_color), PorterDuff.Mode.SRC_ATOP);
+        setTitle(R.string.btn_all_exs);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         textSec = this.getResources().getString(R.string.text_holder_sec);
 
@@ -122,5 +135,4 @@ public class AllExercisesActivity extends AppCompatActivity {
     private void deleteEx(ExEntity exEntity){
         exViewModel.delete(exEntity);
     }
-
 }

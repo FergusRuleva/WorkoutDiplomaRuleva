@@ -3,6 +3,7 @@ package com.example.workoutroom.training.timer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -60,6 +62,18 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_countdown_timer);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.pink_color), PorterDuff.Mode.SRC_ATOP);
+        setTitle(R.string.btn_start);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         textCurrent = this.getResources().getString(R.string.text_current_set);
         textNext = this.getResources().getString(R.string.text_next_set);
@@ -155,6 +169,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         }
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound_sec);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
         mediaPlayer.setScreenOnWhilePlaying(true);
 
@@ -268,17 +283,17 @@ public class CountdownTimerActivity  extends AppCompatActivity {
     private void changeExercises() {
         //для пред упр (текст + изоб)
 
-        currentExText.setText(textCurrent + trainingWithExsList.get(pos).getNameEx());
+        currentExText.setText(textCurrent + "\n" + trainingWithExsList.get(pos).getNameEx());
         currentImg.setImageBitmap(trainingWithExsList.get(pos).getImageEx());
 
         if (pos + 1 < trainingWithExsList.size()) { //если еще остались упр
             //для след упр (текст + изоб)
-            nextExText.setText(textNext + trainingWithExsList.get(pos + 1).getNameEx());
+            nextExText.setText(textNext + "\n" + trainingWithExsList.get(pos + 1).getNameEx());
             nextImg.setImageBitmap(trainingWithExsList.get(pos + 1).getImageEx());
         } else { //если не осталось упр
             if (sets > 0) { //остались повторения
                 //для след упр (текст + изоб), начало с первого упр в наборе
-                nextExText.setText(textNext + trainingWithExsList.get(0).getNameEx());
+                nextExText.setText(textNext + "\n" + trainingWithExsList.get(0).getNameEx());
                 nextImg.setImageBitmap(trainingWithExsList.get(0).getImageEx());
             } else { //нет повторений
                 //для след (упр нет, убираем изоб)

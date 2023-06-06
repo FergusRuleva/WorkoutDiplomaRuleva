@@ -11,9 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="148dp"
         android:clipChildren="true"
         android:clipToPadding="true"
         android:orientation="horizontal"
@@ -40,32 +40,34 @@
 
     <TextView
         android:id="@+id/totalTimeText"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="603dp"
-        android:layout_marginEnd="97dp"
         android:layout_marginBottom="4dp"
         android:text="@string/text_total_time"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/materialButton"
-        app:layout_constraintEnd_toStartOf="@+id/setsText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/setsText"
-        android:layout_width="67dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="603dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:text="@string/text_sets"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/materialButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/totalTimeText"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/blue_color"
+        android:elevation="4dp"
+        app:popupTheme="@style/Theme.WorkoutRoom.PopupOverlay"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

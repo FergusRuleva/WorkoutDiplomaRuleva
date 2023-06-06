@@ -25,8 +25,6 @@ public class HistoryRepository {
     private LiveData<List<TrainingWithExs>> mAllHist;
 
     private List<TrainingWithExs> mAllHistWithoutLiveData;
-
-    private Map<HistoryEntity, List<ExEntity>> mapTr;
     private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
@@ -35,7 +33,6 @@ public class HistoryRepository {
         historyDao = db.historyDao();
         mAllHistWithoutLiveData = historyDao.getTrainingWithExsWithoutLiveData();
         mAllHist = historyDao.getTrainingWithExs();
-        mapTr = historyDao.loadTrainingAndEx();
         trainingExCrossRefList = historyDao.getTrainingExCrossRef();
         trainingExCrossRefDao = db.trainingExCrossRefDao();
 //        if (historyEntityFirst == null){
@@ -47,10 +44,6 @@ public class HistoryRepository {
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
     LiveData<List<TrainingWithExs>> getAllHistories(){
         return mAllHist;
-    }
-
-    Map<HistoryEntity, List<ExEntity>> getMapTr(){
-        return mapTr;
     }
 
     public void deleteTraining(long id){

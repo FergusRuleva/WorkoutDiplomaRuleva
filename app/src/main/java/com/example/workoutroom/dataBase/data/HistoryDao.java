@@ -36,8 +36,8 @@ public interface HistoryDao {
     @Query("SELECT * FROM trainingandex")
     List<TrainingExCrossRef> getTrainingExCrossRef();
 
-    @Query("SELECT * FROM historytraining JOIN trainingandex ON historytraining.idT = trainingandex.idT JOIN allexercises ON trainingandex.idEx = allexercises.idEx")
-    Map<HistoryEntity, List<ExEntity>> loadTrainingAndEx();
+//    @Query("SELECT * FROM historytraining JOIN trainingandex ON historytraining.idT = trainingandex.idT JOIN allexercises ON trainingandex.idEx = allexercises.idEx")
+//    Map<HistoryEntity, List<ExEntity>> loadTrainingAndEx();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TrainingExCrossRef trainingExCrossRef);

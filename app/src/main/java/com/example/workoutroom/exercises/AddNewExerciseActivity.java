@@ -3,6 +3,7 @@ package com.example.workoutroom.exercises;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workoutroom.R;
@@ -66,6 +68,18 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_exercise);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.pink_color), PorterDuff.Mode.SRC_ATOP);
+        setTitle(R.string.btn_add_ex);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         requiredText = this.getResources().getString(R.string.text_required);
         tvNameEx = findViewById(R.id.nameEx);
         tvDescriptionEx = findViewById(R.id.descriptionEx);
@@ -82,10 +96,10 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clickPickMedia();
-                Toast.makeText(
-                        getApplicationContext(),
-                        R.string.image_added,
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(
+//                        getApplicationContext(),
+//                        R.string.image_added,
+//                        Toast.LENGTH_LONG).show();
                 //imageButton.setImageBitmap(bitmap);
             }
         });
