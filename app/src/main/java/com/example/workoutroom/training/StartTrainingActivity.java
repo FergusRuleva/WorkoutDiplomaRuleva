@@ -19,8 +19,6 @@ public class StartTrainingActivity extends AppCompatActivity {
 
     private TextInputLayout setCountText; //слой кол-ва повторений
     private String setCount;
-    private int exCountAll = 9;
-
     private String requiredText;
 
     @SuppressLint("SourceLockedOrientationActivity")

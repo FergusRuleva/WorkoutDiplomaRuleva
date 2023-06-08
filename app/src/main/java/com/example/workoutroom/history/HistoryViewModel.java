@@ -20,19 +20,15 @@ import java.util.Map;
 public class HistoryViewModel extends AndroidViewModel {
 
     public HistoryRepository historyRepository;
-    public HistoryEntity historyEntityFirst = null;
     private final LiveData<List<TrainingWithExs>> mAllHist;
-    private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
+    //private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         historyRepository = new HistoryRepository(application);
         mAllHist = historyRepository.getAllHistories();
-        trainingExCrossRefList = historyRepository.getTrainingExCrossRefList();
-//        if (historyEntityFirst == null){
-//            historyEntityFirst = historyRepository.getHistoryEntityFirst();
-//        }
+        //trainingExCrossRefList = historyRepository.getTrainingExCrossRefList();
     }
 
     public LiveData<List<TrainingWithExs>> getAllHist() {
@@ -51,20 +47,8 @@ public class HistoryViewModel extends AndroidViewModel {
         historyRepository.deleteTraining(id);
     }
 
-    public void delete(long id) {
-        historyRepository.delete(id);
-    }
-
-    public LiveData<List<TrainingWithExs>> getTrainingWithEx(){
-        return historyRepository.getTrainingWithEx();
-    }
-
     public List<ExEntity> getListExs(long id){
         return historyRepository.getListExs(id);
-    }
-
-    List<TrainingExCrossRef> getTrainingExCrossRefList(){
-        return trainingExCrossRefList;
     }
 
     public void update(HistoryEntity historyEntity){

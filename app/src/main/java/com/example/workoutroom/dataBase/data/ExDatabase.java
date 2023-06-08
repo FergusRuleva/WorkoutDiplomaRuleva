@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {ExEntity.class, HistoryEntity.class, TrainingExCrossRef.class},
-        version = 26,
+        version = 27,
         exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class ExDatabase extends RoomDatabase {
@@ -39,9 +39,9 @@ public abstract class ExDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static Bitmap bitmap1, bitmap2, bitmap3, bitmap4, bitmap5, bitmap6, bitmap7, bitmap8, bitmap9;
+    private static Bitmap bitmap1, bitmap2, bitmap3, bitmap4, bitmap5, bitmap6, bitmap7, bitmap8, bitmap9;
 
-    static String nameEx1, nameEx2, nameEx3, nameEx4, nameEx5, nameEx6, nameEx7, nameEx8, nameEx9, desEx1, desEx2, desEx3, desEx4, desEx5, desEx6, desEx7, desEx8, desEx9;
+    private static String nameEx1, nameEx2, nameEx3, nameEx4, nameEx5, nameEx6, nameEx7, nameEx8, nameEx9, desEx1, desEx2, desEx3, desEx4, desEx5, desEx6, desEx7, desEx8, desEx9;
 
     public static ExDatabase getDbInstance(Context context){
 

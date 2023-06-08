@@ -23,22 +23,15 @@ public class HistoryRepository {
     public HistoryDao historyDao;
     private TrainingExCrossRefDao trainingExCrossRefDao;
     private LiveData<List<TrainingWithExs>> mAllHist;
-
-    private List<TrainingWithExs> mAllHistWithoutLiveData;
-    private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
+    //private List<TrainingExCrossRef> trainingExCrossRefList = new ArrayList<>();
 
     @SuppressLint("NewApi")
     HistoryRepository(Application application){
         ExDatabase db = ExDatabase.getDbInstance(application);
         historyDao = db.historyDao();
-        mAllHistWithoutLiveData = historyDao.getTrainingWithExsWithoutLiveData();
         mAllHist = historyDao.getTrainingWithExs();
-        trainingExCrossRefList = historyDao.getTrainingExCrossRef();
+        //trainingExCrossRefList = historyDao.getTrainingExCrossRef();
         trainingExCrossRefDao = db.trainingExCrossRefDao();
-//        if (historyEntityFirst == null){
-//            historyEntityFirst = new HistoryEntity(LocalDate.now().toString(),0, 0);
-//            historyDao.insert(historyEntityFirst);
-//        }
     }
 
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
@@ -52,12 +45,6 @@ public class HistoryRepository {
         });
     }
 
-    public void delete(long id){
-        ExDatabase.databaseWriteExecutor.execute(()->{
-            historyDao.delete(id);
-        });
-    }
-
     void insert(TrainingExCrossRef trainingExCrossRef){
         //ExDatabase.databaseWriteExecutor.execute(()->{
          historyDao.insert(trainingExCrossRef);
@@ -67,17 +54,13 @@ public class HistoryRepository {
         historyDao.insert(historyEntity);
     }
 
-    LiveData<List<TrainingWithExs>> getTrainingWithEx(){
-        return historyDao.getTrainingWithExs();
-    }
-
     List<ExEntity> getListExs(long id){
         return trainingExCrossRefDao.getExsByIdT(id);
     }
 
-    List<TrainingExCrossRef> getTrainingExCrossRefList(){
-        return trainingExCrossRefList;
-    }
+    //List<TrainingExCrossRef> getTrainingExCrossRefList(){
+        //return trainingExCrossRefList;
+    //}
 
     void update(HistoryEntity historyEntity){
         ExDatabase.databaseWriteExecutor.execute(()->{

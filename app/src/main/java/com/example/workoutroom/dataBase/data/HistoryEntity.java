@@ -58,8 +58,4 @@ public class HistoryEntity {
     public int getSetsT() {
         return setsT;
     }
-
-    public void setDone(boolean done) {
-        isDone = done;
-    }
 }

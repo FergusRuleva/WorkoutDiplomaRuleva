@@ -24,10 +24,8 @@ import com.google.android.material.card.MaterialCardView;
 
 public class AllExercisesActivity extends AppCompatActivity {
 
-    public ExViewModel exViewModel;
+    private ExViewModel exViewModel;
     private Button addNewExButton;
-
-    private MaterialCardView materialCardView;
     private String textSec;
 
     @SuppressLint("MissingInflatedId")
@@ -47,7 +45,6 @@ public class AllExercisesActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
         textSec = this.getResources().getString(R.string.text_holder_sec);
 
@@ -110,13 +107,6 @@ public class AllExercisesActivity extends AppCompatActivity {
                         }
                     }
                 });
-//        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
-//            @Override
-//            public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
         popup.show();
     }
 

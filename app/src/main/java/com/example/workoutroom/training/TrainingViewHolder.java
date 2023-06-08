@@ -15,11 +15,8 @@ import com.example.workoutroom.R;
 import com.example.workoutroom.exercises.ExViewHolder;
 
 public class TrainingViewHolder extends RecyclerView.ViewHolder {
-
-    TextView set, time, name, description;
+    TextView time, name;
     ImageView image;
-    static TrainingAdapter.OnWorkoutListener onWorkoutListener;
-
 
     public TrainingViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,9 +35,5 @@ public class TrainingViewHolder extends RecyclerView.ViewHolder {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_training_layout, parent, false);
         return new TrainingViewHolder(view);
-    }
-
-    public void delete(){
-
     }
 }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import com.example.workoutroom.dataBase.data.ExEntity;
 
 public class ExAdapter extends ListAdapter<ExEntity, ExViewHolder> {
-
     private String textSec;
     interface OnExClickListener{
         void onExClick(ExEntity exEntity, int position, View v);
@@ -52,7 +51,7 @@ public class ExAdapter extends ListAdapter<ExEntity, ExViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull ExEntity oldItem, @NonNull ExEntity newItem) {
-            return oldItem.getNameEx().equals(newItem.getNameEx()); //?????
+            return oldItem.getNameEx().equals(newItem.getNameEx());
         }
     }
 }

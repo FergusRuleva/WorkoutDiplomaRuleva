@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CheckoutActivity extends AppCompatActivity implements TrainingAdapter.OnWorkoutListener {
+public class CheckoutActivity extends AppCompatActivity {
 
     private static final String TAG = "CheckoutActivity";
     private int sets; //кол-во повторений
@@ -41,13 +41,12 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
     private TextView setsText;
     private int totalTime = 0; //переменная для времени выполнения упр
     private MaterialButton materialButton;
-    public TrainingViewModel trainingViewModel;
-    public HistoryViewModel historyViewModel;
+    private TrainingViewModel trainingViewModel;
+    private HistoryViewModel historyViewModel;
     private List<ExEntity> exEntityList;
     private List<TrainingExCrossRef> crossList = new ArrayList<>();
-    HistoryEntity historyEntity;
+    private HistoryEntity historyEntity;
     private int sizeListTr;
-
     private String textSets, textTotalTime, textMins, textSec;
 
     @SuppressLint({"SourceLockedOrientationActivity", "MissingInflatedId", "SetTextI18n", "NewApi"})
@@ -101,7 +100,6 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
         materialButton = findViewById(R.id.materialButton);
         totalTimeText = findViewById(R.id.totalTimeText);
         setsText = findViewById(R.id.setsText);
-
         materialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,38 +127,37 @@ public class CheckoutActivity extends AppCompatActivity implements TrainingAdapt
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    @Override
-    public void onWorkoutClick(int position) {
-        Log.d(TAG, "onWorkoutClick: clicked");
-
-    }
-
     //кнопка Start
     @SuppressLint("NewApi")
     public void startExercise(View view) {
+        if (!exEntityList.isEmpty()){
+            //переход на активность с Таймером отсчета
+            Intent intent = new Intent(this, CountdownTimerActivity.class); // создание объекта Intent для запуска CountdownTimerActivity
 
-        //переход на активность с Таймером отсчета
-        Intent intent = new Intent(this, CountdownTimerActivity.class); // создание объекта Intent для запуска CountdownTimerActivity
+            int totalTimeHi = totalTime / 60 * sets;
+            historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTimeHi, sets - 1);
+            historyViewModel.insertHistory(historyEntity);
+            sizeListTr = historyViewModel.historyRepository.historyDao.getHistoryEntity().size();
+            //метод создания записей выбранных упражнений (пперекр. таблица)
+            createTraining();
 
-        int totalTimeHi = totalTime / 60 * sets;
-        historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTimeHi, sets - 1);
-        historyViewModel.insertHistory(historyEntity);
-        sizeListTr = historyViewModel.historyRepository.historyDao.getHistoryEntity().size();
-        //метод создания записей выбранных упражнений (пперекр. таблица)
-        createTraining();
+            //добавление записей выбранных упражнений в таблицу many-to-many
+            for (TrainingExCrossRef exsT: crossList){
+                historyViewModel.insert(exsT);
+            }
 
-        //добавление записей выбранных упражнений в таблицу many-to-many
-        for (TrainingExCrossRef exsT: crossList){
-            historyViewModel.insert(exsT);
+            //передача данных
+            intent.putExtra("sets", sets);
+            intent.putExtra("totalTime", totalTime);
+            intent.putExtra("idTr", historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListTr - 1).idT);
+
+            startActivity(intent); //переход, запуск
+        }else{
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exs_not_select,
+                    Toast.LENGTH_LONG).show();
         }
-
-        //передача данных
-        intent.putExtra("sets", sets);
-        intent.putExtra("totalTime", totalTime);
-        //intent.putExtra("idTr", historyEntity.idT);
-        intent.putExtra("idTr", historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListTr - 1).idT);
-
-        startActivity(intent); //переход, запуск
     }
 
     public void addExsInTraining(int position){

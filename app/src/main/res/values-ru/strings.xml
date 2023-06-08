@@ -5,6 +5,7 @@
     <string name="ex_saved">Упражнение сохранено</string>
     <string name="image_added">Фото добавлено</string>
     <string name="image_not_added">Фото не добавлено!</string>
+    <string name="exs_not_select">Упражнения не выбраны</string>
 
 
     <string name="btn_start">Начать тренировку</string>

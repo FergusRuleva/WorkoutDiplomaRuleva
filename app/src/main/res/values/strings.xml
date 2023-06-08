@@ -5,6 +5,7 @@
     <string name="ex_saved">Exercise saved</string>
     <string name="image_added">Image added</string>
     <string name="image_not_added">Image not added!</string>
+    <string name="exs_not_select">Exercises not selected</string>
 
 
     <string name="btn_start">Start training</string>

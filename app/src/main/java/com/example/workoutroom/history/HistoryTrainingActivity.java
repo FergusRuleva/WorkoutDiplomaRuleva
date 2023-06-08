@@ -40,10 +40,7 @@ import java.util.Map;
 public class HistoryTrainingActivity extends AppCompatActivity {
 
     private HistoryViewModel historyViewModel;
-
-    private List<ExEntity> exEntityList;
     private String textMin, textSets;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,13 +105,6 @@ public class HistoryTrainingActivity extends AppCompatActivity {
                 }
             }
         });
-//        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
-//            @Override
-//            public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
         popup.show();
     }
 
@@ -160,7 +150,6 @@ public class HistoryTrainingActivity extends AppCompatActivity {
 
     private void deleteTr(long id){
         historyViewModel.deleteTraining(id);
-        historyViewModel.delete(id);
         Context context = this; // если вы вызываете метод внутри самой активности
         // вызов метода recreate()
         if (context != null) {

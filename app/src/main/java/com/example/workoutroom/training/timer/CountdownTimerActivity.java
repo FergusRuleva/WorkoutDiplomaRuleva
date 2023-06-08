@@ -36,7 +36,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CountdownTimerActivity  extends AppCompatActivity {
-
     private CountDownTimer countDownTimer; //таймер обратного отсчета
     private TextView setsRemainingText, countdownTimerText, currentExText, nextExText, restText; //TV с активности
     private ImageView currentImg, nextImg; //пред. и след. упр
@@ -44,16 +43,14 @@ public class CountdownTimerActivity  extends AppCompatActivity {
     private int setsHistory;
     private boolean isTimerRunning, isBreak;
     private long timeLeftInMillis; //осталось времени
-    int pos = 0; //для отслеживания смены упр
+    private int pos = 0; //для отслеживания смены упр
     private int totalTime = 0; //время тренировки
     private MaterialButton pauseBtn;
-    public HistoryViewModel historyViewModel = null;
-    public List<ExEntity> trainingWithExsList = new ArrayList<>();
+    private HistoryViewModel historyViewModel = null;
+    private List<ExEntity> trainingWithExsList = new ArrayList<>();
     private int sizeListHistories;
-
     private String textCurrent, textNext, textSetsRemain, textDone;
-
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     @SuppressLint({"MissingInflatedId", "NewApi"})
     @Override
@@ -201,7 +198,8 @@ public class CountdownTimerActivity  extends AppCompatActivity {
                         breakTimer(); //приостановка таймера
                     } else {
                         sizeListHistories = historyViewModel.historyRepository.historyDao.getHistoryEntity().size();
-                        @SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTime, sets);
+                        @SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTime / 60 * sets, sets);
+                        //@SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTime, sets);
                         historyEntity.idT = historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListHistories - 1).idT;
                         historyEntity.isDone = true;
                         historyViewModel.update(historyEntity);

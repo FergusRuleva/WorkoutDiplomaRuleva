@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 public class Converters {
-
     @TypeConverter
     public static byte[] fromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -22,17 +21,5 @@ public class Converters {
     @TypeConverter
     public static Bitmap toBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-    }
-
-    @SuppressLint("NewApi")
-    @TypeConverter
-    public static LocalDateTime fromTimestamp(Long value) {
-        return value == null ? null : LocalDateTime.ofEpochSecond(value, 0, ZoneOffset.UTC);
-    }
-
-    @SuppressLint("NewApi")
-    @TypeConverter
-    public static Long toTimestamp(LocalDateTime date) {
-        return date == null ? null : date.toEpochSecond(ZoneOffset.UTC);
     }
 }

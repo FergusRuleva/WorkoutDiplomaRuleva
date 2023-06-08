@@ -70,8 +70,4 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder{
                 .inflate(R.layout.row_history_layout, parent, false);
         return new HistoryViewHolder(view, view.getContext());
     }
-
-    public void delete(){
-
-    }
 }

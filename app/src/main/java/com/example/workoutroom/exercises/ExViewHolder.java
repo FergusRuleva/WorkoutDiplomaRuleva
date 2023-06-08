@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workoutroom.R;
 
 public class ExViewHolder extends RecyclerView.ViewHolder {
-
-    private Button settingsExButton;
     private final TextView tvNameEx;
     private final TextView tvDescriptionEx;
     private final TextView tvTimeEx;
@@ -42,9 +40,5 @@ public class ExViewHolder extends RecyclerView.ViewHolder {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_ex_layout, parent, false);
         return new ExViewHolder(view);
-    }
-
-    public void delete(){
-
     }
 }

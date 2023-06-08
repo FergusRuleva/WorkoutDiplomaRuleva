@@ -19,11 +19,6 @@ public class TrainingRepository {
     private ExDao exDao;
     private LiveData<List<ExEntity>> mAllEx;
 
-    HistoryEntity historyEntityFirst;
-    TrainingWithExs trainingWithExs;
-    TrainingExCrossRef trainingExCrossRef;
-    List<ExEntity> exEntityList;
-
     @SuppressLint("NewApi")
     TrainingRepository(Application application){
         ExDatabase db = ExDatabase.getDbInstance(application);
@@ -34,21 +29,5 @@ public class TrainingRepository {
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
     LiveData<List<ExEntity>> getExs(){
         return mAllEx;
-    }
-    LiveData<List<ExEntity>> getExsLimited(){
-        return exDao.getExsLimitedLiveData();
-    }
-    ExEntity getEx(int offset){
-        return exDao.getExLiveData(offset);
-    }
-
-//    int getTimeEx(int limit){
-//        return exDaoLimit.getTimeExLiveData(limit);
-//    }
-//    LiveData<List<ExEntity>> getExs(int limit){
-//        return exDaoLimit.getExsLiveData(limit);
-//    }
-    public void getIdTraining(){
-        return ;
     }
 }

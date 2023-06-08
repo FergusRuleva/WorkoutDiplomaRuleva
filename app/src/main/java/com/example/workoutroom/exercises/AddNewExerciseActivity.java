@@ -45,13 +45,13 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     private String descrExCh;
     private String timeExCh;
     private Bitmap imageExCh;
-    Bitmap bitmap;
-    ExViewModel exViewModel;
+    private Bitmap bitmap;
+    private ExViewModel exViewModel;
 
-    String requiredText;
+    private String requiredText;
 
     // Registers a photo picker activity launcher in single-select mode.
-    ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 // Callback is invoked after the user selects a media item or closes the photo picker.
                 if (uri != null) {
@@ -64,7 +64,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
 
     @SuppressLint("MissingInflatedId")
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_exercise);
 
@@ -96,11 +96,6 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clickPickMedia();
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        R.string.image_added,
-//                        Toast.LENGTH_LONG).show();
-                //imageButton.setImageBitmap(bitmap);
             }
         });
 
@@ -208,7 +203,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         }
     }
 
-    public void clickPickMedia(){
+    private void clickPickMedia(){
 
         // Launch the photo picker and let the user choose only images.
         pickMedia.launch(new PickVisualMediaRequest.Builder()

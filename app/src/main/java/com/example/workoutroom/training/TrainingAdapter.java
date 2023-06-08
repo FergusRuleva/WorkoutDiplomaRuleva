@@ -16,14 +16,12 @@ import com.example.workoutroom.exercises.ExViewHolder;
 public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
 
     private String textSec;
-
-    //private int clickCount = 0;
     interface OnExClickListener{
         void onExClick(ExEntity exEntity, int position);
     }
 
-    private final TrainingAdapter.OnExClickListener onClickListener;
-    protected TrainingAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, TrainingAdapter.OnExClickListener onClickListener, String textSec) {
+    private final OnExClickListener onClickListener;
+    protected TrainingAdapter(@NonNull DiffUtil.ItemCallback<ExEntity> diffCallback, OnExClickListener onClickListener, String textSec) {
         super(diffCallback);
         this.onClickListener = onClickListener;
         this.textSec = textSec;
@@ -33,7 +31,6 @@ public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
     @Override
     public TrainingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return TrainingViewHolder.create(parent);
-
     }
 
     @Override
@@ -65,9 +62,5 @@ public class TrainingAdapter extends ListAdapter<ExEntity, TrainingViewHolder> {
         public boolean areContentsTheSame(@NonNull ExEntity oldItem, @NonNull ExEntity newItem) {
             return oldItem.getNameEx().equals(newItem.getNameEx()); //?????
         }
-    }
-
-    public interface OnWorkoutListener {
-        void onWorkoutClick(int position);
     }
 }

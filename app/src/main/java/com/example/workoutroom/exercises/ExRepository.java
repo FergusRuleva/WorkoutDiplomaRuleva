@@ -12,7 +12,6 @@ import java.util.List;
 
 //Абстрактный репозиторий, как это предусмотрено в Руководстве по архитектуре
 public class ExRepository {
-
     private ExDao exDao;
     private LiveData<List<ExEntity>> mAllEx;
 

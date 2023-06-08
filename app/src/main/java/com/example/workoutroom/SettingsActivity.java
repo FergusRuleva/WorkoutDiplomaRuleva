@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    int maxVolume;
+    private int maxVolume;
     @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Switch switchSound;
     @Override
     public void onCreate(Bundle savedInstanceState) {
