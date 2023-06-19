@@ -52,7 +52,7 @@ public class AllExercisesActivity extends AppCompatActivity {
         ExAdapter.OnExClickListener onClickListener = new ExAdapter.OnExClickListener(){
             @Override
             public void onExClick(ExEntity exEntity, int position, View v) {
-                showMenu(v, exEntity);
+                showMenu(v, exEntity); //показать меню
             }
         };
         final ExAdapter adapter = new ExAdapter(new ExAdapter.WorkoutDiff(), onClickListener, textSec); //?????
@@ -60,9 +60,9 @@ public class AllExercisesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         exViewModel = new ViewModelProvider(this).get(ExViewModel.class);
-        exViewModel.getAllEx().observe(this, words -> {
-            // Update the cached copy of the words in the adapter.
-            adapter.submitList(words);
+        exViewModel.getAllEx().observe(this, exs -> {
+            //обновление кэшированной копии exs в адаптере
+            adapter.submitList(exs);
         });
 
         addNewExButton = findViewById(R.id.addNewEx);
@@ -97,10 +97,10 @@ public class AllExercisesActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
 
                         if (item.getItemId() == R.id.option_1){
-                            changeEx(exEntity);
+                            changeEx(exEntity); //изменение
                             return true;
                         }else if(item.getItemId() == R.id.option_2){
-                            deleteEx(exEntity);
+                            deleteEx(exEntity); //удаление
                             return true;
                         }else{
                             return false;
@@ -111,14 +111,13 @@ public class AllExercisesActivity extends AppCompatActivity {
     }
 
     private void changeEx(ExEntity exEntity){
-        //переход на активность с Выполнением упражнения
+        //переход на активность с Изменением упражнения
         Intent intent = new Intent(this, AddNewExerciseActivity.class);
         intent.putExtra("id", exEntity.idEx);
         intent.putExtra("name", exEntity.nameEx);
         intent.putExtra("descr", exEntity.descriptionEx);
         intent.putExtra("time", exEntity.timeEx);
         intent.putExtra("image", Converters.fromBitmap(exEntity.imageEx));
-        //startActivity(intent); //переход
         startActivityForResult(intent, 100);
     }
 

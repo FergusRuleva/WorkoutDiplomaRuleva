@@ -10,7 +10,6 @@ import com.example.workoutroom.dataBase.data.ExEntity;
 
 import java.util.List;
 
-//Абстрактный репозиторий, как это предусмотрено в Руководстве по архитектуре
 public class ExRepository {
     private ExDao exDao;
     private LiveData<List<ExEntity>> mAllEx;
@@ -23,7 +22,7 @@ public class ExRepository {
 
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
     LiveData<List<ExEntity>> getAllEx(){
-        return mAllEx;
+        return mAllEx; //mAllEx = exDao.getAllExLiveData();
     }
 
     void insert(ExEntity exEntity){
@@ -31,13 +30,11 @@ public class ExRepository {
             exDao.insert(exEntity);
         });
     }
-
     public void delete(ExEntity exEntity){
         ExDatabase.databaseWriteExecutor.execute(()->{
             exDao.delete(exEntity);
         });
     }
-
     void update(ExEntity exEntity){
         ExDatabase.databaseWriteExecutor.execute(()->{
             exDao.update(exEntity);

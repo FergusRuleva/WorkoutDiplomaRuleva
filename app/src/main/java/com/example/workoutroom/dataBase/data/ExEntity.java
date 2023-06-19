@@ -25,16 +25,16 @@ public class ExEntity {
 
     @NonNull
     @ColumnInfo(name = "time_ex")
-    public int timeEx;
+    public long timeEx;
 
     @NonNull
     @ColumnInfo(name = "image_ex", typeAffinity = ColumnInfo.BLOB)
     public Bitmap imageEx;
 
     @ColumnInfo(name = "is_select")
-    public boolean isSelect;
+    public boolean isSelect = false;
 
-    public ExEntity(@NonNull String nameEx, String descriptionEx, int timeEx, Bitmap imageEx, boolean isSelect){
+    public ExEntity(@NonNull String nameEx, String descriptionEx, long timeEx, Bitmap imageEx, boolean isSelect){
         this.nameEx = nameEx;
         this.descriptionEx = descriptionEx;
         this.timeEx = timeEx;
@@ -56,7 +56,7 @@ public class ExEntity {
     }
 
     @NonNull
-    public int getTimeEx() {
+    public long getTimeEx() {
         return timeEx;
     }
 

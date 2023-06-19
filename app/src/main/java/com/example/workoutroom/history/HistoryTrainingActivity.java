@@ -75,7 +75,7 @@ public class HistoryTrainingActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         historyViewModel.getAllHist().observe(this, trainingWithExs -> {
-            // Update the cached copy of the training in the adapter.
+            //обновление кэшированной копии trainingWithExs в адаптере
             adapter.submitList(trainingWithExs);
         });
 
@@ -92,13 +92,13 @@ public class HistoryTrainingActivity extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.option_1){
                     try {
-                        sendTr(trainingWithExs);
+                        sendTr(trainingWithExs); //отправка
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     return true;
                 }else if(item.getItemId() == R.id.option_2){
-                    deleteTr(trainingWithExs.historyEntity.idT);
+                    deleteTr(trainingWithExs.historyEntity.idT); //удаление
                     return true;
                 }else{
                     return false;
@@ -110,13 +110,14 @@ public class HistoryTrainingActivity extends AppCompatActivity {
 
     private void sendTr(TrainingWithExs trainingWithExs) throws IOException {
 
+        //создание файла для записи необходимых данных
         Context context = getApplicationContext();
         File file = new File(context.getExternalFilesDir(null), "report.txt");
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write(this.getResources().getString(R.string.text_report_date) + trainingWithExs.historyEntity.getDateT() + "\n");
-            writer.write(this.getResources().getString(R.string.text_report_time) + trainingWithExs.historyEntity.getTimeT() + " Min\n");
-            writer.write(this.getResources().getString(R.string.text_report_sets) + trainingWithExs.historyEntity.getSetsT() + "\n");
+            writer.write(this.getResources().getString(R.string.text_report_date) + "\t" + trainingWithExs.historyEntity.getDateT() + "\n");
+            writer.write(this.getResources().getString(R.string.text_report_time) + "\t" + trainingWithExs.historyEntity.getTimeT() + " Min\n");
+            writer.write(this.getResources().getString(R.string.text_report_sets) + "\t" + trainingWithExs.historyEntity.getSetsT() + "\n");
             if (trainingWithExs.historyEntity.getDone()) {
                 writer.write(this.getResources().getString(R.string.text_report_status_yes) + "\n");
             }else{
@@ -130,7 +131,6 @@ public class HistoryTrainingActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         // Получение содержимого файла
         FileInputStream fis = new FileInputStream(file);
         byte[] byteArray = new byte[(int)file.length()];
@@ -138,19 +138,19 @@ public class HistoryTrainingActivity extends AppCompatActivity {
         fis.close();
         String content = new String(byteArray);
 
-
         Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-        sendIntent.setType("text/plain");
+        sendIntent.setAction(Intent.ACTION_SEND); //действие отправки данных
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content); //передача сформированного отчета
+        sendIntent.setType("text/plain"); //данные и тип
 
+        //отображение Android Sharesheet
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
     }
 
     private void deleteTr(long id){
         historyViewModel.deleteTraining(id);
-        Context context = this; // если вы вызываете метод внутри самой активности
+        Context context = this; // если вызывается метод внутри самой активности
         // вызов метода recreate()
         if (context != null) {
             ((Activity) context).recreate();

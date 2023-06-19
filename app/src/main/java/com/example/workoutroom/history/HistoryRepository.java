@@ -36,7 +36,7 @@ public class HistoryRepository {
 
     //Room выполняет все запросы в отдельном потоке. LiveData будут уведомлять наблюдателя об изменении данных
     LiveData<List<TrainingWithExs>> getAllHistories(){
-        return mAllHist;
+        return mAllHist; //mAllHist = historyDao.getTrainingWithExs();
     }
 
     public void deleteTraining(long id){

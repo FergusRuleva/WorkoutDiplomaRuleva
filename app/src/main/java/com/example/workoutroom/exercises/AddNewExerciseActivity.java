@@ -38,7 +38,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
     private TextInputEditText tiEditTextN;
     private TextInputEditText tiEditTextD;
     private TextInputEditText tiEditTextT;
-    private int timeEx;
+    private long timeEx;
     private Button imageButton;
     private ImageView imageView;
     private String nameExCh;
@@ -102,10 +102,11 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("id") && intent.hasExtra("name") && intent.hasExtra("descr") && intent.hasExtra("time") && intent.hasExtra("image")) { //если передали
             saveButton.setText(this.getResources().getString(R.string.btn_update_ex));
+            setTitle(this.getResources().getString(R.string.btn_update_ex));
 
             nameExCh = intent.getStringExtra("name");
             descrExCh = intent.getStringExtra("descr");
-            timeExCh = Integer.toString(intent.getIntExtra("time", 0));
+            timeExCh = Long.toString(intent.getLongExtra("time", 0));
             imageExCh = Converters.toBitmap(intent.getByteArrayExtra("image"));
 
             tiEditTextN.setText(nameExCh);
@@ -138,7 +139,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     }else{
                         String nameEx = tvNameEx.getEditText().getText().toString();
                         String descriptionEx = tvDescriptionEx.getEditText().getText().toString();
-                        timeEx = Integer.parseInt(tvTimeEx.getEditText().getText().toString());
+                        timeEx = Long.parseLong(tvTimeEx.getEditText().getText().toString());
 
                         ExEntity workoutEntity = new ExEntity(nameEx, descriptionEx, timeEx, bitmap, false);
                         workoutEntity.idEx = intent.getLongExtra("id", 0);
@@ -187,7 +188,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     }else{
                         String nameEx = tvNameEx.getEditText().getText().toString();
                         String descriptionEx = tvDescriptionEx.getEditText().getText().toString();
-                        timeEx = Integer.parseInt(tvTimeEx.getEditText().getText().toString());
+                        timeEx = Long.parseLong(tvTimeEx.getEditText().getText().toString());
 
                         ExEntity workoutEntity = new ExEntity(nameEx, descriptionEx, timeEx, bitmap, false);
                         exViewModel.insert(workoutEntity);

@@ -38,19 +38,7 @@ public interface HistoryDao {
     @Query("DELETE FROM historytraining WHERE idT = :id")
     void deleteTraining(long id);
 
-//    @Transaction
-//    @Query("DELETE FROM trainingandex WHERE idT = :id")
-//    void delete(long id);
-
     @Transaction
     @Update
     void update(HistoryEntity historyEntity);
-
-
-//    @Query("SELECT * FROM trainingandex")
-//    List<TrainingExCrossRef> getTrainingExCrossRef();
-
-    //    @Transaction
-//    @Query("SELECT * FROM historytraining")
-//    List<TrainingWithExs> getTrainingWithExsWithoutLiveData();
 }

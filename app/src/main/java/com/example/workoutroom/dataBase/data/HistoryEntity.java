@@ -23,7 +23,7 @@ public class HistoryEntity {
 
     @NonNull
     @ColumnInfo(name = "time_t")
-    public int timeT;
+    public long timeT;
 
     @NonNull
     @ColumnInfo(name = "sets_t")
@@ -33,7 +33,7 @@ public class HistoryEntity {
     @ColumnInfo(name = "is_done_t")
     public boolean isDone;
 
-    public HistoryEntity(@NonNull String dateT, int timeT, int setsT){
+    public HistoryEntity(@NonNull String dateT, long timeT, int setsT){
         this.dateT = dateT;
         this.timeT = timeT;
         this.setsT = setsT;
@@ -47,7 +47,7 @@ public class HistoryEntity {
         return dateT;
     }
 
-    public int getTimeT() {
+    public long getTimeT() {
         return timeT;
     }
 

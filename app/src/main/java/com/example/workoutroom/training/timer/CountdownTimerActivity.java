@@ -44,7 +44,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
     private boolean isTimerRunning, isBreak;
     private long timeLeftInMillis; //осталось времени
     private int pos = 0; //для отслеживания смены упр
-    private int totalTime = 0; //время тренировки
+    private long totalTime = 0; //время тренировки
     private MaterialButton pauseBtn;
     private HistoryViewModel historyViewModel = null;
     private List<ExEntity> trainingWithExsList = new ArrayList<>();
@@ -97,9 +97,10 @@ public class CountdownTimerActivity  extends AppCompatActivity {
                 && getIntent().hasExtra("idTr")) {
 
             //получаем список и кол-во упр.и подходов
-            setsHistory = sets;
-            this.sets = getIntent().getIntExtra("sets", 2) - 1;
-            this.totalTime = getIntent().getIntExtra("totalTime", 2);
+
+            this.sets = getIntent().getIntExtra("sets", 1) - 1;
+            setsHistory = sets + 1;
+            this.totalTime = getIntent().getLongExtra("totalTime", 2);
             //получаем список выбранных упражнений
             trainingWithExsList = historyViewModel.getListExs(getIntent().getLongExtra("idTr", 0));
 
@@ -117,28 +118,21 @@ public class CountdownTimerActivity  extends AppCompatActivity {
             startTimer(); //запускаем таймер
         }
 
-        runOnUiThread(new Runnable() {
+        //обработка нажатия на Pause
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                //обработка нажатия на Pause
-                pauseBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (pauseBtn.getText().toString().equals(textDone)) { //если завершено
-                            finish(); //закрытие активности
-                            //Intent intent = new Intent(CountdownTimerActivity.this, MainActivity.class);
-                            //startActivity(intent); //переход
-                        } else {
-                            if (isTimerRunning) { //если таймер работает
-                                pauseTimer(); //остановка таймера
-                                pauseBtn.setText(R.string.btn_restart); //установка текста Повтора
-                            } else {
-                                startTimer(); //запуск таймера
-                                pauseBtn.setText(R.string.btn_pause); //установка текста Пауза
-                            }
-                        }
+            public void onClick(View v) {
+                if (pauseBtn.getText().toString().equals(textDone)) { //если завершено
+                    finish(); //закрытие активности
+                } else {
+                    if (isTimerRunning) { //если таймер работает
+                        pauseTimer(); //остановка таймера
+                        pauseBtn.setText(R.string.btn_restart); //установка текста Повтора
+                    } else {
+                        startTimer(); //запуск таймера
+                        pauseBtn.setText(R.string.btn_pause); //установка текста Пауза
                     }
-                });
+                }
             }
         });
     }
@@ -160,7 +154,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         timeLeftInMillis = trainingWithExsList.get(pos).getTimeEx() * 1000; //получаем оставшееся время упражнения
 
         try {
-            Thread.sleep(1000); //каждую секунду отсчет
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -170,7 +164,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
         mediaPlayer.start();
         mediaPlayer.setScreenOnWhilePlaying(true);
 
-        //запуск обратного отсчета
+        //создание объекта таймера обр. отсчета (общее время старта, интервал отсчета)
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
 
             //обновление времени
@@ -183,7 +177,6 @@ public class CountdownTimerActivity  extends AppCompatActivity {
             //после окончания отсчета
             @Override
             public void onFinish() {
-                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 if (pos + 2 > trainingWithExsList.size()) { //если упр закончились
                     if (sets > 0) { //если кол-во повторений не закончилось
                         sets--; //-повтор
@@ -198,8 +191,8 @@ public class CountdownTimerActivity  extends AppCompatActivity {
                         breakTimer(); //приостановка таймера
                     } else {
                         sizeListHistories = historyViewModel.historyRepository.historyDao.getHistoryEntity().size();
-                        @SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTime / 60 * sets, sets);
-                        //@SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTime, sets);
+                        long totalTimeH = totalTime / 60 * (setsHistory);
+                        @SuppressLint({"NewApi", "LocalSuppress"}) HistoryEntity historyEntity = new HistoryEntity(LocalDate.now().toString(), totalTimeH, setsHistory);
                         historyEntity.idT = historyViewModel.historyRepository.historyDao.getHistoryEntity().get(sizeListHistories - 1).idT;
                         historyEntity.isDone = true;
                         historyViewModel.update(historyEntity);
@@ -224,10 +217,10 @@ public class CountdownTimerActivity  extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     breakTimer(); //приостановка таймера
-                }
+                }  //если остались упр -> таймер работает, запуск паузы для отдыха
             }
-        }.start();
 
+        }.start();
         isTimerRunning = true; //таймер работает
     }
 
@@ -242,7 +235,7 @@ public class CountdownTimerActivity  extends AppCompatActivity {
 
     //приостановка таймера
     private void breakTimer() {
-        long breakTime = 10000; //время остановки 40000
+        long breakTime = 10000;
         isBreak = true; //остановлено
 
         mediaPlayer.stop();
@@ -265,7 +258,8 @@ public class CountdownTimerActivity  extends AppCompatActivity {
                 //мин + сек
                 int minutes = (int) (millisUntilFinished / 1000) / 60;
                 int seconds = (int) (millisUntilFinished / 1000) % 60;
-                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds); //форматируем (целое число с 2 цифрами)
+                //форматируем (целое число с 2 цифрами)
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 countdownTimerText.setText(timeLeftFormatted); //установка оставшегося времени
             }
 
@@ -279,11 +273,9 @@ public class CountdownTimerActivity  extends AppCompatActivity {
 
     //смена упр
     private void changeExercises() {
-        //для пред упр (текст + изоб)
-
+        //для текущего упр (текст + изоб)
         currentExText.setText(textCurrent + "\n" + trainingWithExsList.get(pos).getNameEx());
         currentImg.setImageBitmap(trainingWithExsList.get(pos).getImageEx());
-
         if (pos + 1 < trainingWithExsList.size()) { //если еще остались упр
             //для след упр (текст + изоб)
             nextExText.setText(textNext + "\n" + trainingWithExsList.get(pos + 1).getNameEx());

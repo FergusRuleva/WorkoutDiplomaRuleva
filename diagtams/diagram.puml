@@ -1,0 +1,6 @@
+@startuml
+!include C:\Users\rulev\AndroidStudioProjects\WorkoutRoom\app\src\main\java\com\example\workoutroom\MainActivity.java
+!include C:\Users\rulev\AndroidStudioProjects\WorkoutRoom\app\src\main\java\com\example\workoutroom\SettingsActivity.java
+
+MainActivity -> SettingsActivity
+@enduml

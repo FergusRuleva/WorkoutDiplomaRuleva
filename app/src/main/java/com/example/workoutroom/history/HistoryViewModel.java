@@ -32,7 +32,7 @@ public class HistoryViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TrainingWithExs>> getAllHist() {
-        return mAllHist;
+        return mAllHist; //mAllHist = historyRepository.getAllHistories();
     }
 
     public void insert(TrainingExCrossRef trainingExCrossRef) {

@@ -20,12 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter extends ListAdapter<TrainingWithExs, HistoryViewHolder> {
-
-
     private HistoryDao historyDao;
-
     private String textMin, textSets;
-
 
     interface OnExClickListener{
         void onExClick(TrainingWithExs trainingWithExs, int position, View v);
@@ -52,7 +48,7 @@ public class HistoryAdapter extends ListAdapter<TrainingWithExs, HistoryViewHold
         TrainingWithExs current = getItem(position);
         HistoryEntity historyEntity = current.historyEntity;
         List<ExEntity> exEntityList = historyDao.getListExsByIdTr(historyEntity.idT);
-        holder.bind(historyEntity.getDateT(), historyEntity.isDone, String.valueOf(historyEntity.timeT) + textMin, String.valueOf(historyEntity.setsT + 1) + textSets, exEntityList);
+        holder.bind(historyEntity.getDateT(), historyEntity.isDone, String.valueOf(historyEntity.timeT) + textMin, String.valueOf(historyEntity.setsT) + textSets, exEntityList);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

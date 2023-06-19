@@ -44,12 +44,12 @@ public class StartTrainingActivity extends AppCompatActivity {
         requiredText = this.getResources().getString(R.string.text_required);
     }
 
-    //кнопка Выбора упражнения
+    //кнопка Выбора упражнений
     public void selectiveExMode(View view) {
         setCount = setCountText.getEditText().getText().toString();
 
-        if (setCount.equals("")) { //если не введены ОБА значения
-            setCountText.setError(requiredText);
+        if (setCount.equals("")) { //если не введено значение
+            setCountText.setError(requiredText); //установка текста ошибки
         } else {
             setCountText.setError(null);
 
